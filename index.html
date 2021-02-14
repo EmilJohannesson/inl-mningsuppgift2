@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <title>Vädret</title>
 </head>
 <body>
     <header>
-        <div id="navbar">
+        <div class="navbar">
             <form action="">
                 <label for="cityname">City:</label>
                 <input type="text" id="cityname">
@@ -19,22 +19,31 @@
         </div>
     </header>
     <div class="container">
-        <div id="weather">  
+        <div class="weather">  
             <div id="description"></div>
             <h1 id="temp"></h1>
             <div id="location"></div>
         </div>
-        <div id="attractions">
-            <h1 id="name1"></h1>
-            <h2 id="address1"></h2>
-            <h1 id="name2"></h1>
-            <h2 id="address2"></h2>
-            <h1 id="name3"></h1>
-            <h2 id="address3"></h2>
-            <h1 id="name4"></h1>
-            <h2 id="address4"></h2>
+
+        <div class="attractions">
+            <div class = "attraction-item">
+                <h1 id="name1"></h1>
+                <h2 id="address1"></h2>
+             </div>
+            <div class = "attraction-item">
+                <h1 id="name2"></h1>
+                <h2 id="address2"></h2>
+            </div>        
+            <div class = "attraction-item">
+                <h1 id="name3"></h1>
+                <h2 id="address3"></h2>
+            </div>
         </div>
     </div>
+
+
+
+
 
     <script>
         document.getElementById("getData").addEventListener("click", getAttractionsData);
@@ -61,7 +70,7 @@
 
         async function getAttractionsData() {
             let cityName = document.getElementById("cityname").value;
-            const apiUrl = "https://api.foursquare.com/v2/venues/explore?&near="+cityName+"&limit=4&v=20200214&client_id=3ORZRNRR040Y1D50Y1OSD5YZMHBNLNBGWNTLAORSNFSSKTB5&client_secret=3FAIXBUK5B1MMGX5M0GZAQXIVCCRSMFSBIZVXBPF3BDSCXOM";
+            const apiUrl = "https://api.foursquare.com/v2/venues/explore?&near="+cityName+"&limit=3&v=20200214&client_id=3ORZRNRR040Y1D50Y1OSD5YZMHBNLNBGWNTLAORSNFSSKTB5&client_secret=3FAIXBUK5B1MMGX5M0GZAQXIVCCRSMFSBIZVXBPF3BDSCXOM";
 
             const respone = await fetch(apiUrl);    
             const data = await respone.json();
@@ -77,8 +86,6 @@
             document.getElementById("address2").innerHTML = output.response.groups[0].items[1].venue.location.address;
             document.getElementById("name3").innerHTML = output.response.groups[0].items[2].venue.name;
             document.getElementById("address3").innerHTML = output.response.groups[0].items[2].venue.location.address;
-            document.getElementById("name4").innerHTML = output.response.groups[0].items[3].venue.name;
-            document.getElementById("address4").innerHTML = output.response.groups[0].items[3].venue.location.address;
         }
         
         /*function attractionsOutput (output) {

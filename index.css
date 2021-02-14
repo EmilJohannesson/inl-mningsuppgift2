@@ -40,10 +40,12 @@ header {
 
 .weather {
 display: flex;
-flex-direction: column;
+}
+
+.weather-item {
+padding: 20px;
 border: 2px solid black;
 border-radius: 10px;
-padding: 20px;
 }
 
 .attractions {

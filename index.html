@@ -21,13 +21,10 @@
         </div>
     </header>
     <div class="container">
-        <div class="weather">  
-            <div id="description"></div>
-            <h1 id="temp"></h1>
-            <div id="location"></div>
-        </div>
+        <div class="weather"></div>
 
         <div class="attractions">
+            <!--
             <div class = "attraction-item">
                 <h1 id="name1"></h1>
                 <h2 id="address1"></h2>
@@ -40,6 +37,7 @@
                 <h1 id="name3"></h1>
                 <h2 id="address3"></h2>
             </div>
+            -->
         </div>
     </div>
 
@@ -54,19 +52,19 @@
         function checkBoxCheck (){
             const cbWeatherOnly = document.getElementById("weatheronly");
             const cbAttractionsOnly = document.getElementById("attractionsonly");
-            console.log(cbWeatherOnly.checked);
-            console.log(cbAttractionsOnly.checked);
+            //console.log(cbWeatherOnly.checked);
+            //console.log(cbAttractionsOnly.checked);
 
             if (cbWeatherOnly.checked && cbAttractionsOnly.checked == true) {
                 getWeatherData();
                 getAttractionsData();
-                console.log("Both are checked");
+                //console.log("Both are checked");
             } else if (cbWeatherOnly.checked == true) {
                 getWeatherData();
             } else if (cbAttractionsOnly.checked == true) {
                 getAttractionsData();
             } else {
-                console.log("It didn't work");
+                //console.log("It didn't work");
             }
         }
 
@@ -82,9 +80,17 @@
         }
 
         function weatherOutput (output) {
-            document.getElementById("description").innerHTML = output.weather[0].description;
-            document.getElementById("temp").innerHTML = output.main.temp.toFixed(1) + "&deg;";
-            document.getElementById("location").innerHTML = output.name;
+            document.querySelector(".weather").innerHTML = `
+            <div class ="weather-item">
+            <h3>${output.weather[0].description}</h3>
+            <h1>${output.main.temp.toFixed(1) + "&deg;"}</h1>
+            <h2>${output.name}</h2>
+            </div>`
+           // document.getElementById("description").innerHTML = output.weather[0].description;
+           // document.getElementById("temp").innerHTML = output.main.temp.toFixed(1) + "&deg;";
+           // document.getElementById("location").innerHTML = output.name;
+
+
             //Detta visade sig vara mycket jobb, får se om jag hinner med det.
             //document.getElementById("image").innerHTML = output.weather[0].icon;
         }
@@ -95,18 +101,34 @@
 
             const respone = await fetch(apiUrl);    
             const data = await respone.json();
-            console.log(data.response.groups[0].items[0].venue.name);
+            //console.log(data.response.groups[0].items[0].venue.name);
             attractionsOutput(data);
-            console.log(data);
+            //console.log(data);
         }
         
         function attractionsOutput (output) {
+            document.querySelector(".attractions").innerHTML = `
+            <div class ="attraction-item">
+            <h1>${output.response.groups[0].items[0].venue.name}</h1>
+            <h3>${output.response.groups[0].items[0].venue.location.address}</h3>
+            </div>
+            <div class ="attraction-item">
+            <h1>${output.response.groups[0].items[1].venue.name}</h1>
+            <h3>${output.response.groups[0].items[1].venue.location.address}</h3>
+            </div>
+            <div class ="attraction-item">
+            <h1>${output.response.groups[0].items[2].venue.name}</h1>
+            <h3>${output.response.groups[0].items[2].venue.location.address}</h3>
+            </div>
+            `
+            /*
             document.getElementById("name1").innerHTML = output.response.groups[0].items[0].venue.name;
             document.getElementById("address1").innerHTML = output.response.groups[0].items[0].venue.location.address;
             document.getElementById("name2").innerHTML = output.response.groups[0].items[1].venue.name;
             document.getElementById("address2").innerHTML = output.response.groups[0].items[1].venue.location.address;
             document.getElementById("name3").innerHTML = output.response.groups[0].items[2].venue.name;
             document.getElementById("address3").innerHTML = output.response.groups[0].items[2].venue.location.address;
+            */
         }
         
         /*function attractionsOutput (output) {

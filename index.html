@@ -14,8 +14,10 @@
                 <input type="text" id="cityname">
             </form>
             <button id="getData">Get</button>
-            <input type="checkbox" name="" id="weatheronly">
-            <input type="checkbox" name="" id="attractionsonly">
+            <div class = navbarcheckbox>
+            <label><input type="checkbox" name="" id="weatheronly" checked>Weather only</label>
+            <label><input type="checkbox" name="" id="attractionsonly">Attractions Only</label>
+            </div>
         </div>
     </header>
     <div class="container">
@@ -46,8 +48,27 @@
 
 
     <script>
-        document.getElementById("getData").addEventListener("click", getAttractionsData);
-        document.getElementById("getData").addEventListener("click", getWeatherData);
+        document.getElementById("getData").addEventListener("click", checkBoxCheck);
+
+        
+        function checkBoxCheck (){
+            const cbWeatherOnly = document.getElementById("weatheronly");
+            const cbAttractionsOnly = document.getElementById("attractionsonly");
+            console.log(cbWeatherOnly.checked);
+            console.log(cbAttractionsOnly.checked);
+
+            if (cbWeatherOnly.checked && cbAttractionsOnly.checked == true) {
+                getWeatherData();
+                getAttractionsData();
+                console.log("Both are checked");
+            } else if (cbWeatherOnly.checked == true) {
+                getWeatherData();
+            } else if (cbAttractionsOnly.checked == true) {
+                getAttractionsData();
+            } else {
+                console.log("It didn't work");
+            }
+        }
 
         
         async function getWeatherData (city) {

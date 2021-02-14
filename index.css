@@ -23,6 +23,12 @@ header {
     z-index: 999;
 }
 
+.navbarcheckbox {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
 .container {
     margin-top: 50px;
     display: flex;
@@ -35,6 +41,9 @@ header {
 .weather {
 display: flex;
 flex-direction: column;
+border: 2px solid black;
+border-radius: 10px;
+padding: 20px;
 }
 
 .attractions {
@@ -45,4 +54,7 @@ flex-direction: row;
 .attraction-item {
 margin: 20px;
 padding: 10px;
+border: 2px solid black;
+border-radius: 10px;
+padding: 20px;
 }

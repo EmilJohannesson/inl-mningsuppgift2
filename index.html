@@ -27,8 +27,14 @@
     </div>
 
     <div id="attractions">
-        <h1 id="name"></h1>
-        <h2 id="address"></h2>
+        <h1 id="name1"></h1>
+        <h2 id="address1"></h2>
+        <h1 id="name2"></h1>
+        <h2 id="address2"></h2>
+        <h1 id="name3"></h1>
+        <h2 id="address3"></h2>
+        <h1 id="name4"></h1>
+        <h2 id="address4"></h2>
     </div>
 
     <script>
@@ -55,18 +61,39 @@
 
         async function getAttractionsData() {
             let cityName = document.getElementById("cityname").value;
-            const apiUrl = "https://api.foursquare.com/v2/venues/explore?&near="+cityName+"&limit=1&v=20200214&client_id=3ORZRNRR040Y1D50Y1OSD5YZMHBNLNBGWNTLAORSNFSSKTB5&client_secret=3FAIXBUK5B1MMGX5M0GZAQXIVCCRSMFSBIZVXBPF3BDSCXOM";
+            const apiUrl = "https://api.foursquare.com/v2/venues/explore?&near="+cityName+"&limit=4&v=20200214&client_id=3ORZRNRR040Y1D50Y1OSD5YZMHBNLNBGWNTLAORSNFSSKTB5&client_secret=3FAIXBUK5B1MMGX5M0GZAQXIVCCRSMFSBIZVXBPF3BDSCXOM";
 
             const respone = await fetch(apiUrl);    
             const data = await respone.json();
             console.log(data.response.groups[0].items[0].venue.name);
-            attractionsOutput(data);    
+            attractionsOutput(data);
+            console.log(data);
         }
         
         function attractionsOutput (output) {
+            document.getElementById("name1").innerHTML = output.response.groups[0].items[0].venue.name;
+            document.getElementById("address1").innerHTML = output.response.groups[0].items[0].venue.location.address;
+            document.getElementById("name2").innerHTML = output.response.groups[0].items[1].venue.name;
+            document.getElementById("address2").innerHTML = output.response.groups[0].items[1].venue.location.address;
+            document.getElementById("name3").innerHTML = output.response.groups[0].items[2].venue.name;
+            document.getElementById("address3").innerHTML = output.response.groups[0].items[2].venue.location.address;
+            document.getElementById("name4").innerHTML = output.response.groups[0].items[3].venue.name;
+            document.getElementById("address4").innerHTML = output.response.groups[0].items[3].venue.location.address;
+        }
+        
+        /*function attractionsOutput (output) {
+            let test = "<h1>Attraction</h1>";
+            output.forEach(function(attraction) {
+                test += `
+                <h2>${attraction.response.groups[0].items[0].venue.name}<h2>
+                <h2>${attraction.response.groups[0].items[0].venue.location.address}<h2>
+                `;
+            });
+            
+            //document.getElementById("attractions").innerHTML = test;
             document.getElementById("name").innerHTML = output.response.groups[0].items[0].venue.name;
             document.getElementById("address").innerHTML = output.response.groups[0].items[0].venue.location.address;
-        }
+        }*/
     </script>
 </body>
 </html>

@@ -7,43 +7,65 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="">
-        <label for="cityname">City:</label>
-        <input type="text" id="cityname">
-    </form>
-    <button id="getData">Get data</button>
-    <div id="weather">
+    <header>
+        <div id="navbar">
+            <form action="">
+                <label for="cityname">City:</label>
+                <input type="text" id="cityname">
+            </form>
+            <button id="getWeatherData">Get weather data</button>
+            <button id="getAttractionsData">Get attractions data</button>
+            <input type="checkbox" name="" id="weatheronly">
+            <input type="checkbox" name="" id="attractionsonly">
+        </div>
+    </header>
+
+    <div id="weather">  
         <div id="description"></div>
         <h1 id="temp"></h1>
         <div id="location"></div>
     </div>
 
-    <script>
-        //const apiText = "https://jsonplaceholder.typicode.com/posts";
-        
-        document.getElementById("getData").addEventListener("click", getData);
-        
-        function getData (city) {
-            let cityName = document.getElementById("cityname").value;
-            const apiUrl = "https://api.openweathermap.org/data/2.5/weather?q=" +cityName+"&appid=e8e4f12614f876a3e81e6a3ad90c4b37&mode=json&units=metric&lang=sv";
+    <div id="attractions">
+        <h1 id="name"></h1>
+        <h2 id="address"></h2>
+    </div>
 
-            fetch(apiUrl)
-            .then(function(response) {
-                return response.json()
-            })
-            .then(function(data) {
-                console.log(data);
-                weatherOutput(data);
-            }) 
+    <script>
+        document.getElementById("getWeatherData").addEventListener("click", getWeatherData);
+        document.getElementById("getAttractionsData").addEventListener("click", getAttractionsData);
+        
+        async function getWeatherData (city) {
+            let cityName = document.getElementById("cityname").value;
+            const apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&appid=e8e4f12614f876a3e81e6a3ad90c4b37&mode=json&units=metric&lang=sv";
+
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            weatherOutput(data);
         }
 
         function weatherOutput (output) {
-            //let celsius = Math.round(parseFloat(output.main.temp)-273.15);
-
             document.getElementById("description").innerHTML = output.weather[0].description;
             document.getElementById("temp").innerHTML = output.main.temp.toFixed(1) + "&deg;";
             document.getElementById("location").innerHTML = output.name;
+            //Detta visade sig vara mycket jobb, får se om jag hinner med det.
+            //document.getElementById("image").innerHTML = output.weather[0].icon;
+        }
 
+        async function getAttractionsData() {
+            let cityName = document.getElementById("cityname").value;
+            const apiUrl = "https://api.foursquare.com/v2/venues/explore?&near="+cityName+"&limit=1&v=20200214&client_id=3ORZRNRR040Y1D50Y1OSD5YZMHBNLNBGWNTLAORSNFSSKTB5&client_secret=3FAIXBUK5B1MMGX5M0GZAQXIVCCRSMFSBIZVXBPF3BDSCXOM";
+
+            const respone = await fetch(apiUrl);    
+            const data = await respone.json();
+            console.log(data.response.groups[0].items[0].venue.name);
+            attractionsOutput(data);    
+        }
+        
+        function attractionsOutput (output) {
+            document.getElementById("name").innerHTML = output.response.groups[0].items[0].venue.name;
+            document.getElementById("address").innerHTML = output.response.groups[0].items[0].venue.location.address;
         }
     </script>
 </body>

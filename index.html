@@ -13,33 +13,33 @@
                 <label for="cityname">City:</label>
                 <input type="text" id="cityname">
             </form>
-            <button id="getWeatherData">Get weather data</button>
-            <button id="getAttractionsData">Get attractions data</button>
+            <button id="getData">Get</button>
             <input type="checkbox" name="" id="weatheronly">
             <input type="checkbox" name="" id="attractionsonly">
         </div>
     </header>
-
-    <div id="weather">  
-        <div id="description"></div>
-        <h1 id="temp"></h1>
-        <div id="location"></div>
-    </div>
-
-    <div id="attractions">
-        <h1 id="name1"></h1>
-        <h2 id="address1"></h2>
-        <h1 id="name2"></h1>
-        <h2 id="address2"></h2>
-        <h1 id="name3"></h1>
-        <h2 id="address3"></h2>
-        <h1 id="name4"></h1>
-        <h2 id="address4"></h2>
+    <div class="container">
+        <div id="weather">  
+            <div id="description"></div>
+            <h1 id="temp"></h1>
+            <div id="location"></div>
+        </div>
+        <div id="attractions">
+            <h1 id="name1"></h1>
+            <h2 id="address1"></h2>
+            <h1 id="name2"></h1>
+            <h2 id="address2"></h2>
+            <h1 id="name3"></h1>
+            <h2 id="address3"></h2>
+            <h1 id="name4"></h1>
+            <h2 id="address4"></h2>
+        </div>
     </div>
 
     <script>
-        document.getElementById("getWeatherData").addEventListener("click", getWeatherData);
-        document.getElementById("getAttractionsData").addEventListener("click", getAttractionsData);
+        document.getElementById("getData").addEventListener("click", getAttractionsData);
+        document.getElementById("getData").addEventListener("click", getWeatherData);
+
         
         async function getWeatherData (city) {
             let cityName = document.getElementById("cityname").value;

@@ -15,30 +15,14 @@
             </form>
             <button id="getData">Get</button>
             <div class = navbarcheckbox>
-            <label><input type="checkbox" name="" id="weatheronly" checked>Weather only</label>
-            <label><input type="checkbox" name="" id="attractionsonly">Attractions Only</label>
+            <label><input type="checkbox" name="" id="weatheronly" checked>Weather</label>
+            <label><input type="checkbox" name="" id="attractionsonly">Attractions</label>
             </div>
         </div>
     </header>
     <div class="container">
         <div class="weather"></div>
-
-        <div class="attractions">
-            <!--
-            <div class = "attraction-item">
-                <h1 id="name1"></h1>
-                <h2 id="address1"></h2>
-             </div>
-            <div class = "attraction-item">
-                <h1 id="name2"></h1>
-                <h2 id="address2"></h2>
-            </div>        
-            <div class = "attraction-item">
-                <h1 id="name3"></h1>
-                <h2 id="address3"></h2>
-            </div>
-            -->
-        </div>
+        <div class="attractions"></div>
     </div>
 
 
@@ -48,7 +32,7 @@
     <script>
         document.getElementById("getData").addEventListener("click", checkBoxCheck);
 
-        
+        //kolla vad som ska sökas
         function checkBoxCheck (){
             const cbWeatherOnly = document.getElementById("weatheronly");
             const cbAttractionsOnly = document.getElementById("attractionsonly");
@@ -68,7 +52,7 @@
             }
         }
 
-        
+        //hämta data och sedan skicka vidare till en annan funktion som skriver ut den på websidan
         async function getWeatherData (city) {
             let cityName = document.getElementById("cityname").value;
             const apiUrl = "https://api.openweathermap.org/data/2.5/weather?q="+cityName+"&appid=e8e4f12614f876a3e81e6a3ad90c4b37&mode=json&units=metric&lang=sv";
@@ -106,6 +90,7 @@
             //console.log(data);
         }
         
+        //borde fixa en loop för detta
         function attractionsOutput (output) {
             document.querySelector(".attractions").innerHTML = `
             <div class ="attraction-item">
@@ -121,29 +106,7 @@
             <h3>${output.response.groups[0].items[2].venue.location.address}</h3>
             </div>
             `
-            /*
-            document.getElementById("name1").innerHTML = output.response.groups[0].items[0].venue.name;
-            document.getElementById("address1").innerHTML = output.response.groups[0].items[0].venue.location.address;
-            document.getElementById("name2").innerHTML = output.response.groups[0].items[1].venue.name;
-            document.getElementById("address2").innerHTML = output.response.groups[0].items[1].venue.location.address;
-            document.getElementById("name3").innerHTML = output.response.groups[0].items[2].venue.name;
-            document.getElementById("address3").innerHTML = output.response.groups[0].items[2].venue.location.address;
-            */
         }
-        
-        /*function attractionsOutput (output) {
-            let test = "<h1>Attraction</h1>";
-            output.forEach(function(attraction) {
-                test += `
-                <h2>${attraction.response.groups[0].items[0].venue.name}<h2>
-                <h2>${attraction.response.groups[0].items[0].venue.location.address}<h2>
-                `;
-            });
-            
-            //document.getElementById("attractions").innerHTML = test;
-            document.getElementById("name").innerHTML = output.response.groups[0].items[0].venue.name;
-            document.getElementById("address").innerHTML = output.response.groups[0].items[0].venue.location.address;
-        }*/
     </script>
 </body>
 </html>
